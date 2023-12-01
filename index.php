@@ -38,7 +38,28 @@
 	</div>
 	
 
-	<div id="liste_rdv">liste rdv</div>
+	<div id="liste_rdv" >
+		<div style="border: black 1px solid;">
+			<p><span style="background-color: lightblue;">02/13/2023</span>
+				<span style="background-color: lightgreen;">15h-16h</span>
+			Jean Dupont
+			Martin Dupond</p>
+		</div>
+		
+		<div style="border: black 1px solid;">
+			<p><span style="background-color: lightblue;">02/13/2023</span>
+				<span style="background-color: lightgreen;">15h-16h</span>
+			Jean Dupont
+			Martin Dupond</p>
+		</div>
+
+		<div style="border: black 1px solid;">
+			<p><span style="background-color: lightblue;">02/13/2023</span>
+				<span style="background-color: lightgreen;">15h-16h</span>
+			Jean Dupont
+			Martin Dupond</p>
+		</div>
+	</div>
 
 	<table>
 		<th>L</th>

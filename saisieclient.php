@@ -3,12 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style/saisieclient.css">
 	<title>Saise nouveau client</title>
 	<style>
 	</style>
 </head>
 <body>
-	<button><a href="index.php" style="text-decoration: none;">Retour</a></button>
+	<button><a href="index.php">Retour</a></button>
 	<h1>Saisie nouveau client</h1>
 	<form action="saisieclient.php" method="post" style="display:flex; text-align: right;">
 		<fieldset id="infos_client">
