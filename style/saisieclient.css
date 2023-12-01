@@ -1,3 +1,35 @@
 * {
 	font-family: "Open Sans";
 }
+
+header{
+	height: 10%;
+	display: flex;
+	justify-content: space-between;
+}
+
+h1 {
+	background-color: red;
+}
+
+form {
+	display:flex;
+	justify-content: center;
+}
+
+#infos_client, #infos_naissance, #adresse_client{
+	border-color: #5E6073;
+	background-color: #FFFFDD;
+	text-align: right;
+}
+
+label {
+	display: inline-block;
+	text-align: right;
+}
+
+input {
+	border-radius: 10px;
+	border-style: solid;
+	background-color: white;
+}
