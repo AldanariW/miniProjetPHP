@@ -21,8 +21,8 @@
 		</label>
 		<br>
 
-		<label>Client :
-			<select name="client" placeholder="Jean Dupont">
+		<label>Médecin :
+			<select name="medecin" placeholder="Jeanne Dupond">
 				<option>Bonjour</option>
 				<option>Bonjour 2</option>
 				<option>Bonjour 3</option>
