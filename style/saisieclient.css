@@ -2,6 +2,11 @@
 	font-family: "Open Sans";
 }
 
+body {
+	background-image: "./../images/background.jpg";
+	background-color: red;
+}
+
 header{
 	height: 10%;
 	display: flex;
