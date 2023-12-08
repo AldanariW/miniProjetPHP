@@ -10,9 +10,8 @@
 </head>
 <body>
 	<header>
-		<button><a href="index.php">Retour</a></button>
+		<button id="retour"><a href="index.php">Retour</a></button>
 		<h1>Saisie nouveau client</h1>
-		<div>bjour</div>
 	</header>
 	<form action="saisieclient.php" method="post">
 		<fieldset id="infos_client">

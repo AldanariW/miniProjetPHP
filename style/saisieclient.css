@@ -3,29 +3,43 @@
 }
 
 body {
-	background-image: "./../images/background.jpg";
-	background-color: red;
+	padding: 0px;
+	margin: 0px;
+	background-image: url("../images/background.jpg");
+	background-size: cover;
+}
+
+#retour {
+	position: absolute;
+	left: 2%;
+	top: 2%;
 }
 
 header{
 	height: 10%;
 	display: flex;
-	justify-content: space-between;
-}
-
-h1 {
-	background-color: red;
+	justify-content: center;
+	background-color: rgb(129, 143, 180, 0.95);
 }
 
 form {
-	display:flex;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: center;
 }
 
 #infos_client, #infos_naissance, #adresse_client{
-	border-color: #5E6073;
+	margin: 10px;
+	border: #FFFDDD 1px solid;
 	background-color: #FFFFDD;
+	border-radius: 15px;
 	text-align: right;
+}
+
+legend {
+	background-color: #FFD28F;
+	width: inherit;
 }
 
 label {
@@ -36,5 +50,10 @@ label {
 input {
 	border-radius: 10px;
 	border-style: solid;
-	background-color: white;
+	background-color: #9BB8CD;
+	border-color: #FFFFDD;
+}
+
+::placeholder {
+	color: white;
 }
