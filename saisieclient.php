@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style/saisie.css">
 	<link rel="stylesheet" type="text/css" href="style/saisieclient.css">
 	<title>Saise nouveau client</title>
 	<style>
@@ -10,12 +11,16 @@
 </head>
 <body>
 	<header>
-		<button id="retour"><a href="index.php">Retour</a></button>
+		<button id="retour">
+			<img src="images/retour.png">
+			<a href="index.php">Retour</a>
+		</button>
 		<h1>Saisie nouveau client</h1>
 	</header>
+
 	<form action="saisieclient.php" method="post">
 		<fieldset id="infos_client">
-			<legend>Informations client</legend>
+			<legend>Informations Client</legend>
 
 			<label>Prénom :
 				<input type="text" name="prenom" placeholder="Martin">

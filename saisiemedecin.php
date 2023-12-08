@@ -3,30 +3,38 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="style/saisie.css">
+	<link rel="stylesheet" type="text/css" href="style/saisiemedecin.css">
 	<title>Saise nouveau client</title>
-	<style>
-	</style>
 </head>
 <body>
-	<button><a href="index.php" style="text-decoration: none;">Retour</a></button>
-	<h1>Saisie nouveau médecin</h1>
-	<form action="saisiemedecin.php" method="post" style="text-align: right; width: 20%;">
+	<header>
+		<button id="retour">
+			<img src="images/retour.png">
+			<a href="index.php">Retour</a>
+		</button>
+		<h1>Saisie nouveau médecin</h1>
+	</header>
 
-		<label>Prénom :
-			<input type="text" name="prenom" placeholder="Martin">
-		</label>
-		<br>
+	<form action="saisiemedecin.php" method="post">
+		<fieldset id="infos_medecin">
+			<legend>Informations Médecin</legend>
 
-		<label>Nom :
-			<input type="text" name="nom" placeholder="Dupont">
-		</label>
-		<br>
-
-		<fieldset id="civilite">
-			<legend>Civilite</legend>
-				<label>M.
-				<input type="radio" name="civilite">
+			<label>Prénom :
+				<input type="text" name="prenom" placeholder="Martin">
 			</label>
+			<br>
+
+			<label>Nom :
+				<input type="text" name="nom" placeholder="Dupont">
+			</label>
+			<br>
+
+			<fieldset id="civilite">
+				<legend>Civilite</legend>
+					<label>M.
+					<input type="radio" name="civilite">
+				</label>
 
 				<label>Mme
 					<input type="radio" name="civilite">

@@ -1,0 +1,12 @@
+#infos_medecin {
+	width: 26%;
+	margin: 8px;
+	border: #FFFDDD 1px solid;
+	background-color: #FFFFDD;
+	border-radius: 15px;
+	text-align: right;
+}
+
+#infos_medecin label{
+	margin: 0px 15px 0px 15px;
+}
