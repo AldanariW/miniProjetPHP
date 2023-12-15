@@ -185,17 +185,17 @@
 				<legend>Lieu de naissance</legend>
 
 				<label>Adresse
-					<input type="texte" name="rueNaissance" placeholder="Hôpital X OU Adresse naissance" required>
+					<input type="text" name="rueNaissance" placeholder="Hôpital X OU Adresse naissance" required>
 				</label>
 				<br>
 
 				<label>Ville
-					<input type="texte" name="villeNaissance" placeholder="Paris" required>
+					<input type="text" name="villeNaissance" placeholder="Paris" required>
 				</label>
 				<br>
 
 				<label>Code postal
-					<input type="texte" name="codePostalNaissance" placeholder="75100" required>
+					<input type="text" name="codePostalNaissance" placeholder="75100" required>
 				</label>
 			</fieldset>
 		</fieldset>
@@ -203,22 +203,32 @@
 		<fieldset id="adresse_client">
 			<legend>Adresse Client</legend>
 			<label>Adresse
-				<input type="texte" name="adresse" placeholder="5 rue Jean Moulin" required>
+				<input type="text" name="adresse" placeholder="5 rue Jean Moulin" required>
 			</label>
 			<br>
 
 			<label>Ville
-				<input type="texte" name="ville" placeholder="Paris" required>
+				<input type="text" name="ville" placeholder="Paris" required>
 			</label>
 			<br>
 
 			<label>Code postal
-				<input type="texte" name="codepostal" placeholder="75100" required>
+				<input type="text" name="codepostal" placeholder="75100" required>
 			</label>
 
 		</fieldset>
 
-		<input type="submit" value="Enregistrer">
+		<fieldset id="medecin_referent">
+			<legend>Médecin référent</legend>
+
+			<select>
+				<option value="">Pas de médecin référent</option>
+				<option value="test">Mes couilles</option>
+			</select>
+
+		</fieldset>
+
+		<input type="submit" value="Enregistrer" id ="enregistrer">
 
 	</form>
 
