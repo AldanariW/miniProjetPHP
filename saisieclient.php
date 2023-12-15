@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +10,28 @@
 	<style>
 	</style>
 </head>
+
 <body>
+	<?php
+
+
+	if (isset($_POST['submit'])) {
+		$nom = $_POST['nom'];
+		$prenom = $_POST['prenom'];
+		$civilite = isset($_POST['civilite']) ? $_POST['civilite'] : '';
+		$dateNaissance = $_POST['dateNaissance'];
+		$rueNaissance = $_POST['rueNaissance'];
+		$villeNaissance = $_POST['villeNaissance'];
+		$codePostalNaissance = $_POST['codePostalNaissance'];
+		$adresse = $_POST['adresse'];
+		$ville = $_POST['ville'];
+		$codepostal = $_POST['codepostal'];
+
+
+	}
+	?>
+
+
 	<header>
 		<button id="retour">
 			<img src="images/retour.png">
@@ -43,15 +65,15 @@
 				<legend>Civilite</legend>
 
 				<label>M.
-					<input type="radio" name="civilite" required>
+					<input type="radio" name="mCivilite" required>
 				</label>
 
 				<label>Mme
-					<input type="radio" name="civilite" required>
+					<input type="radio" name="mmeCivilite" required>
 				</label>
 
 				<label>Autre
-					<input type="radio" name="civilite" required>
+					<input type="radio" name="aCivilite" required>
 				</label>
 			</fieldset>
 		</fieldset>
@@ -86,23 +108,28 @@
 		<fieldset id="adresse_client">
 			<legend>Adresse Client</legend>
 			<label>Adresse
-					<input type="texte" name="adresse" placeholder="5 rue Jean Moulin" required>
-				</label>
-				<br>
+				<input type="texte" name="adresse" placeholder="5 rue Jean Moulin" required>
+			</label>
+			<br>
 
-				<label>Ville
-					<input type="texte" name="ville" placeholder="Paris" required>
-				</label>
-				<br>
+			<label>Ville
+				<input type="texte" name="ville" placeholder="Paris" required>
+			</label>
+			<br>
 
-				<label>Code postal
-					<input type="texte" name="codepostal" placeholder="75100" required>
-				</label>
+			<label>Code postal
+				<input type="texte" name="codepostal" placeholder="75100" required>
+			</label>
 
 		</fieldset>
 
-		<input type="submit" name="Valider" id="valider">
+		<input type="submit" value="Enregistrer">
 
 	</form>
+
+
+
+
 </body>
+
 </html>
