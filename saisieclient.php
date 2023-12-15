@@ -13,6 +13,12 @@
 <body>
 	<?php
 
+	try {
+		$linkpdo = new PDO("mysql:host=localhost;dbname=miniprojetphp", "root", "");
+	} catch (\Throwable $th) {
+		throw $th;
+	}
+
 
 	if (isset($_POST['submit'])) {
 		$nom = $_POST['nom'];
@@ -25,9 +31,73 @@
 		$adresse = $_POST['adresse'];
 		$ville = $_POST['ville'];
 		$codepostal = $_POST['codepostal'];
-
+		$numSecu = $_POST[''];
 
 	}
+
+	$missing = array();
+	foreach ($_POST as $key => $value) {
+		if (empty($value)) {
+			array_push($missing, $key);
+		}
+	}
+	if (!empty($missing)) {
+		die("All the field must be filled ! missing : " . implode(", ", $missing)); // TODO mettre une popup a la place de die
+	}
+
+	try {
+		$exist = $linkpdo->prepare("SELECT count(*)
+                    FROM contact
+                    WHERE nom = :nom 
+					AND prenom = :prenom 
+					AND adresse = :adresse 
+					AND codePostale = :codePostale 
+					AND ville = :ville 
+					AND telephone = :telephone");
+	} catch (\Throwable $th) {
+		throw $th;
+	}
+
+	$exist->bindParam(':nom', $nom, PDO::PARAM_STR, 50);
+	$exist->bindParam(':prenom', $prenom, PDO::PARAM_STR, 50);
+	$exist->bindParam(':adresse', $adresse, PDO::PARAM_STR, 100);
+	$exist->bindParam(':codePostale', $codePostale, PDO::PARAM_STR, 5);
+	$exist->bindParam(':ville', $ville, PDO::PARAM_STR, 50);
+	$exist->bindParam(':telephone', $telephone, PDO::PARAM_STR, 10);
+
+	try {
+		$exist->execute();
+	} catch (\Throwable $th) {
+		throw $th;
+	}
+
+	if ($exist->fetchColumn() == 0) {
+		try {
+			$req = $linkpdo->prepare("INSERT INTO contact (nom, prenom, adresse, codePostale, ville, telephone)
+                        VALUES (:nom, :prenom, :adresse, :codePostale, :ville, :telephone)");
+		} catch (\Throwable $th) {
+			throw $th;
+		}
+
+		$req->bindParam(':nom', $nom, PDO::PARAM_STR, 50);
+		$req->bindParam(':prenom', $prenom, PDO::PARAM_STR, 50);
+		$req->bindParam(':adresse', $adresse, PDO::PARAM_STR, 100);
+		$req->bindParam(':codePostale', $codePostale, PDO::PARAM_STR, 5);
+		$req->bindParam(':ville', $ville, PDO::PARAM_STR, 50);
+		$req->bindParam(':telephone', $telephone, PDO::PARAM_STR, 10);
+
+
+		try {
+			$req->execute();
+		} catch (\Throwable $th) {
+			throw $th;
+		}
+	} else {
+		echo "Contact already exist !"; // TODO mettre une popup a la place de echo
+	}
+
+
+
 	?>
 
 
