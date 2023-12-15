@@ -61,7 +61,7 @@
 		</div>
 	</div>
 
-	<table>
+	<!-- <table>
 		<th>L</th>
 		<th>M</th>
 		<th>M</th>
@@ -119,11 +119,7 @@
 			<td></td>
 			<td></td>
 		</tr>
-
-
-
-
-	</table>
+	</table> -->
 
 </body>
 </html>
