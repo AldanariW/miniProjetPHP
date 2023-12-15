@@ -31,9 +31,11 @@
 	?>
 
 
-	<button><a href="index.php">Retour</a></button>
-	<h1>Saisie nouveau client</h1>
-	<form action="saisieclient.php" method="post" style="display:flex; text-align: right;">
+	<header>
+		<button id="retour"><a href="index.php">Retour</a></button>
+		<h1>Saisie nouveau client</h1>
+	</header>
+	<form action="saisieclient.php" method="post">
 		<fieldset id="infos_client">
 			<legend>Informations client</legend>
 
