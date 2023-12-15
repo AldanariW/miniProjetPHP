@@ -11,15 +11,21 @@ body {
 
 #retour {
 	display: flex;
-	position: absolute;
-	left: 2%;
-	top: 4%;
+	height: 50%;
 	font-size: 20px;
+	background-color: #9BB8CD;
+	border-radius: 10px;
+	border: 3px solid #57617a;
 }
 
 a, a:visited, a:hover {
 	color: black;
 	text-decoration: none;
+}
+
+#retour:hover, input:focus, input:hover{
+	background-color: #818FB4;
+	border-color: #435585;
 }
 
 #retour img {
@@ -28,11 +34,19 @@ a, a:visited, a:hover {
 	max-height: 100%;
 }
 
+
 header{
 	height: 25%;
 	display: flex;
-	justify-content: center;
-	background-color: rgb(129, 143, 180, 0.95);
+	align-items: center;
+	padding: 0 20px 0 20px;
+	margin-bottom: 4px;
+	justify-content: space-between;
+	background-color: #9BB8CD;
+}
+
+header div {
+	color: #9BB8EE;
 }
 
 form {
@@ -59,11 +73,12 @@ input {
 	border: 2px #FFFFDD solid;
 }
 
-input:focus, input:hover {
-	background-color: #818FB4;
-	border: 2px #435585 solid;
-}
-
 ::placeholder {
 	color: white;
+}
+
+#valider {
+	margin-top: 4px;
+	border-radius: 10px;
+	border-color: #9BB8CD;
 }

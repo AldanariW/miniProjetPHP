@@ -9,9 +9,11 @@
 </head>
 <body>
 	<header>
-		<button id="retour">
-			<img src="images/retour.png">
-			<a href="index.php">Retour</a>
+		<button id="retour" href="index.php">
+			<a href="index.php">
+				<img src="images/retour.png">
+				Retour
+			</a>
 		</button>
 		<h1>Saisie nouveau médecin</h1>
 	</header>

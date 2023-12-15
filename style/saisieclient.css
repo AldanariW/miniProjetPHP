@@ -1,6 +1,6 @@
 #infos_client, #infos_naissance, #adresse_client{
 	width: 26%;
-	margin: 8px;
+	margin: 4px;
 	border: #FFFDDD 1px solid;
 	background-color: #FFFFDD;
 	border-radius: 15px;
@@ -10,4 +10,8 @@
 
 #infos_client label, #adresse_client label {
 	margin: 0px 15px 0px 15px;
+}
+
+#datenaissance {
+	margin-right: 18px;
 }
