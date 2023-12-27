@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
 	<?php
 
 	try {
@@ -96,9 +97,6 @@
 	} else {
 		echo "Contact already exist !"; // TODO mettre une popup a la place de echo
 	}
-
-
-
 	?>
 
 
@@ -127,7 +125,7 @@
 			<br>
 
 			<label>N° Sécurité sociale :
-				<input type="text" name="numsecu" placeholder="15 chiffres" maxlength="15" size="15" required>
+				<input type="text" name="numsecu" placeholder="15 chiffres" length="15" size="15" required>
 			</label>
 
 

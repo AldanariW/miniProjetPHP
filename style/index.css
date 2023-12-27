@@ -1,0 +1,43 @@
+* {
+	font-family: "Open Sans";
+}
+
+body {
+	display:flex;
+	padding: 0px;
+	margin: 0px;
+	background-image: url("../images/background.jpg");
+	background-size: cover;
+}
+
+table th, table tr td {
+	border: 1px black solid;
+}
+
+td {
+	height: 64px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 50%;
+	float: right;
+}
+
+#liste_rdv {
+	width: 30%;
+	border: 1px black solid;
+	margin: 0 5px 0 5px;
+}
+
+.date_rdv {
+	background-color: lightblue;
+}
+
+.heure_rdv {
+	background-color: lightgreen;
+}
+
+.rdv_item {
+	border: black 1px solid;
+}
