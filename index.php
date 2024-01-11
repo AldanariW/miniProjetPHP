@@ -26,6 +26,12 @@
 				</div>');
 			}
 
+			function ajouterHeures($t1, $t2) {
+				$m = (intval(substr($t1, -5, 2)) + intval(substr($t2, -5, 2))) % 60;
+				$h = (intval(substr($t1, 0, 2)) + intval(substr($t2, 0, 2))) % 60 + intdiv(intval(substr($t1, -5, 2)) + intval(substr($t2, -5, 2)), 60);
+				return ($h < 9 ? '0' : '').$h.($m < 9 ? ':0' : ':').$m;
+			}
+
 			try {
 				$linkpdo = new PDO("mysql:host=localhost;dbname=miniprojetphp", 'root', '');
 				$linkpdo->setattribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -33,8 +39,11 @@
 				$req = $linkpdo->prepare(
 					"SELECT CAST(rdv.DateHeure AS DATE) as dateRDV, 
 						CAST(rdv.DateHeure AS TIME) as heureDebut,
-						CAST(CAST(rdv.DateHeure AS TIME) + rdv.Duree AS TIME) ,
-						c.Prenom, c.Nom, m.Prenom, m.Nom
+						CAST(rdv.Duree AS TIME) as duree,
+						c.Prenom,
+						c.Nom,
+						m.Prenom, 
+						m.Nom
 					FROM consultation rdv, client c, medecin m
 					WHERE rdv.IdClient = c.IdClient AND rdv.IdMedecin = m.IdMedecin;
 					AND CAST(rdv.DateHeure AS DATE) > date();");
@@ -42,12 +51,13 @@
 				if ($req->execute()) {
 					while ($resultat = $req->fetch(PDO::FETCH_BOTH)) {
 						creerRDV($resultat[0],
-							$resultat[1],
-							$resultat[2],
+							substr($resultat[1],0,5),
+							ajouterHeures($resultat[1],$resultat[2]),
 							$resultat[3],
 							$resultat[4],
 							$resultat[5],
-							$resultat[6]);
+							$resultat[6],
+						);
 					}
 				}
 			} catch (Exception $e) {

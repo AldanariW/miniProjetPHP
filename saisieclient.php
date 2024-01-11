@@ -16,7 +16,7 @@
 	<?php
 
 	try {
-		$linkpdo = new PDO("mysql:host=localhost;dbname=miniprojetphp", "root", "");
+		$linkpdo = new PDO("mysql:host=localhost;dbname=miniprojet", "root", "");
 	} catch (Exception $e) {
 		throw new Exception("Erreur lors du lien avec la base de données", 1);
 	}
