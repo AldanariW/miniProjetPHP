@@ -62,30 +62,32 @@
 	try {
 		$exist = $linkpdo->prepare("SELECT COUNT(*)
 					FROM Client
-					WHERE Nom = :nom
-					AND Prenom = :prenom
-					AND Adresse = :adresse
-					AND Civilite = :civilite
-					AND DateNaissance = :dateNaissance
-					AND LieuNaissance = :rueNaissance
-					AND CodePostal = :codePostalNaissance
-					AND Ville = :villeNaissance
-					AND NumSecu = :numSecu;");
+					WHERE Civilite			 	= :civilite
+					AND   Nom 					= :nom
+					AND   Prenom			 	= :prenom
+					AND   Adresse			 	= :adresse
+					AND   CodePostal			= :codePostal
+					AND   Ville			 		= :ville
+					AND   DateNaissance			= :dateNaissance
+					AND   RueNaissance			= :rueNaissance
+					AND   VilleNaissance		= :villeNaissance
+					AND   CodePostalNaissance	= :codePostalNaissance
+					AND   NumSecu			 	= :numSecu;");
 	} catch (\Throwable $th) {
 		throw new Exception("Erreur d'éxcecution de requète", 2);
 	}
 
+	$exist->bindParam(':civilite', $civilite, PDO::PARAM_STR, 3);
 	$exist->bindParam(':nom', $nom, PDO::PARAM_STR, 50);
 	$exist->bindParam(':prenom', $prenom, PDO::PARAM_STR, 50);
 	$exist->bindParam(':adresse', $adresse, PDO::PARAM_STR, 50);
-	$exist->bindParam(':civilite', $civilite, PDO::PARAM_STR, 3);
-	$exist->bindParam(':dateNaissance', $dateNaissance, PDO::PARAM_STR); // TODO as Date
-	$exist->bindParam(':rueNaissance', $rueNaissance);
-	$exist->bindParam(':villeNaissance', $villeNaissance);
-	$exist->bindParam(':codePostalNaissance', $codePostalNaissance);
+	$exist->bindParam(':codePostal', $codepostal, PDO::PARAM_STR, 5);
 	$exist->bindParam(':ville', $ville, PDO::PARAM_STR, 50);
-	$exist->bindParam(':codepostal', $codepostal);
-	$exist->bindParam(':numSecu', $numSecu);
+	$exist->bindParam(':dateNaissance', $dateNaissance, PDO::PARAM_STR, 10);
+	$exist->bindParam(':rueNaissance', $rueNaissance, PDO::PARAM_STR, 50);
+	$exist->bindParam(':villeNaissance', $villeNaissance, PDO::PARAM_STR, 30);
+	$exist->bindParam(':codePostalNaissance', $codePostalNaissance, PDO::PARAM_STR, 5);
+	$exist->bindParam(':numSecu', $numSecu, PDO::PARAM_STR, 15);
 
 
 	try {
@@ -98,26 +100,31 @@
 	if ($exist->fetchColumn() == 0) {
 		try {
 			$req = $linkpdo->prepare(
-				"INSERT INTO contact (Civilite, Nom, Prenom, Adresse, CodePostal, Ville, DateNaissance, LieuNaissance, NumSecu)
-				VALUES (:civilite, :nom, :prenom, :adresse, :codepostal, :ville, :dateNaissance, :rueNaissance, :numSecu);");
+				"INSERT INTO client ('Civilite', 'Nom', 'Prenom', 'Adresse', 'CodePostal', 'Ville', 'DateNaissance', 'RueNaissance', 'VilleNaissance', 'CodePostalNaissance',
+				'NumSecu', 'IdMedecin') 
+				VALUES (:civilite, :nom, :prenom, :adresse, :codePostal, :ville, :dateNaissance, :rueNaissance, :villeNaissance, :codePostalNaissance,
+				:numSecu, :idMedecin);");
 		} catch (\Throwable $th) {
 			throw new Exception("Erreur d'éxcecution de requète", 2);
 		}
 
-		$exist->bindParam(':civilite', $civilite);
-		$exist->bindParam(':nom', $nom);
-		$exist->bindParam(':prenom', $prenom);
-		$exist->bindParam(':adresse', $adresse);
-		$exist->bindParam(':codepostal', $codepostal);
-		$exist->bindParam(':ville', $ville);
-		$exist->bindParam(':dateNaissance', $dateNaissance);
-		$exist->bindParam(':rueNaissance', $rueNaissance);
-		$exist->bindParam(':numSecu', $numSecu);
+		$req->bindParam(':civilite', $civilite, PDO::PARAM_STR, 3);
+		$req->bindParam(':nom', $nom, PDO::PARAM_STR, 50);
+		$req->bindParam(':prenom', $prenom, PDO::PARAM_STR, 50);
+		$req->bindParam(':adresse', $adresse, PDO::PARAM_STR, 50);
+		$req->bindParam(':codePostal', $codepostal, PDO::PARAM_STR, 5);
+		$req->bindParam(':ville', $ville, PDO::PARAM_STR, 50);
+		$req->bindParam(':dateNaissance', $dateNaissance, PDO::PARAM_STR, 10);
+		$req->bindParam(':rueNaissance', $rueNaissance, PDO::PARAM_STR, 50);
+		$req->bindParam(':villeNaissance', $villeNaissance, PDO::PARAM_STR, 30);
+		$req->bindParam(':codePostalNaissance', $codePostalNaissance, PDO::PARAM_STR, 5);
+		$req->bindParam(':numSecu', $numSecu, PDO::PARAM_STR, 15);
+		$req->bindParam(':idMedecin', $idMedecin, PDO::PARAM_INT, 11);
 
 		try {
 			$req->execute();
 		} catch (\Throwable $th) {
-			throw new Exception("Erreur d'éxcecution de requète", 2);
+			throw $th;
 		}
 	} else {
 		echo "Contact already exist !"; // TODO mettre une popup a la place de echo
