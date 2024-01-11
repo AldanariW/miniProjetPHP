@@ -175,7 +175,7 @@
 			<legend>Informations Naissance Client</legend>
 
 			<label>Date de naissance :
-				<input type="date" name="dateNaissance" id="datenaissance" required>
+				<input type="date" max="<?= date('Y-m-d'); ?>" required>
 			</label>
 			<br>
 

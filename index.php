@@ -27,7 +27,7 @@
 			}
 
 			try {
-				$linkpdo = new PDO("mysql:host=localhost;dbname=MiniProjet", 'root', '');
+				$linkpdo = new PDO("mysql:host=localhost;dbname=miniprojetphp", 'root', '');
 				$linkpdo->setattribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 				$req = $linkpdo->prepare(
@@ -37,11 +37,10 @@
 						c.Prenom, c.Nom, m.Prenom, m.Nom
 					FROM consultation rdv, client c, medecin m
 					WHERE rdv.IdClient = c.IdClient AND rdv.IdMedecin = m.IdMedecin;
-					AND CAST(rdv.DateHeure AS DATE) > NOW();");
+					AND CAST(rdv.DateHeure AS DATE) > date();");
 
 				if ($req->execute()) {
 					while ($resultat = $req->fetch(PDO::FETCH_BOTH)) {
-						echo "prout";
 						creerRDV($resultat[0],
 							$resultat[1],
 							$resultat[2],
