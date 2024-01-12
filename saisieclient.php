@@ -20,10 +20,17 @@
 		throw new Exception("Erreur lors du lien avec la base de données", 1);
 	}
 
+	$missing = array();
+	foreach ($_POST as $key => $value) {
+		if (empty($value)) {
+			array_push($missing, $key);
+		}
+	}
+	if (!empty($missing)) {
+		throw new Exception("Champs Manquant", 11); // TODO mettre une popup a la place de throw
+	}
 
-	if (isset($_POST['submit'])) {
-		$nom = $_POST['nom'];
-		$prenom = $_POST['prenom'];
+	if (isset($_POST['Enregistrer'])) {
 		switch ($_POST['civilite']) {
 			case 'M':
 				$civilite = 'M';
@@ -37,93 +44,111 @@
 			default:
 				break;
 		}
-		$dateNaissance = $_POST['dateNaissance'];
-		$rueNaissance = $_POST['rueNaissance'];
-		$villeNaissance = $_POST['villeNaissance'];
-		$codePostalNaissance = $_POST['codePostalNaissance'];
+		$nom = $_POST['nom'];
+		$prenom = $_POST['prenom'];
+
 		$adresse = $_POST['adresse'];
 		$ville = $_POST['ville'];
 		$codepostal = $_POST['codepostal'];
+
+		$dateNaissance = date('Y-m-d', strtotime($_POST['dateNaissance']));
+		$rueNaissance = $_POST['rueNaissance'];
+		$villeNaissance = $_POST['villeNaissance'];
+		$codePostalNaissance = $_POST['codePostalNaissance'];
+
 		$numSecu = $_POST['numsecu'];
 
-	}
-
-	$missing = array();
-	foreach ($_POST as $key => $value) {
-		if (empty($value)) {
-			array_push($missing, $key);
-		}
-	}
-	if (!empty($missing)) {
-		throw new Exception("Champs Manquant", 11); // TODO mettre une popup a la place de die
-	}
-
-	try {
-		$exist = $linkpdo->prepare("SELECT COUNT(*)
+		try {
+			$exist = $linkpdo->prepare("SELECT COUNT(*)
 					FROM Client
-					WHERE Nom = :nom
+					
+					WHERE Civilite = :civilite
+					AND Nom = :nom
 					AND Prenom = :prenom
+
 					AND Adresse = :adresse
-					AND Civilite = :civilite
+					AND Ville = :ville
+					AND CodePostal = :codepostal
+
 					AND DateNaissance = :dateNaissance
-					AND LieuNaissance = :rueNaissance
-					AND CodePostal = :codePostalNaissance
-					AND Ville = :villeNaissance
+					AND RueNaissance = :rueNaissance
+					AND VilleNaissance = :villeNaissance
+					AND CodePostalNaissance = :codePostalNaissance
+
 					AND NumSecu = :numSecu;");
-	} catch (\Throwable $th) {
-		throw new Exception("Erreur d'éxcecution de requète", 2);
-	}
 
-	$exist->bindParam(':nom', $nom, PDO::PARAM_STR, 50);
-	$exist->bindParam(':prenom', $prenom, PDO::PARAM_STR, 50);
-	$exist->bindParam(':adresse', $adresse, PDO::PARAM_STR, 50);
-	$exist->bindParam(':civilite', $civilite, PDO::PARAM_STR, 3);
-	$exist->bindParam(':dateNaissance', $dateNaissance, PDO::PARAM_STR); // TODO as Date
-	$exist->bindParam(':rueNaissance', $rueNaissance);
-	$exist->bindParam(':villeNaissance', $villeNaissance);
-	$exist->bindParam(':codePostalNaissance', $codePostalNaissance);
-	$exist->bindParam(':ville', $ville, PDO::PARAM_STR, 50);
-	$exist->bindParam(':codepostal', $codepostal);
-	$exist->bindParam(':numSecu', $numSecu);
-
-
-	try {
-		$exist->execute();
-	} catch (\Throwable $th) {
-		throw $th;
-		//throw new Exception("Erreur d'éxcecution de requète", 2);
-	}
-
-	if ($exist->fetchColumn() == 0) {
-		try {
-			$req = $linkpdo->prepare(
-				"INSERT INTO contact (Civilite, Nom, Prenom, Adresse, CodePostal, Ville, DateNaissance, LieuNaissance, NumSecu)
-				VALUES (:civilite, :nom, :prenom, :adresse, :codepostal, :ville, :dateNaissance, :rueNaissance, :numSecu);");
 		} catch (\Throwable $th) {
 			throw new Exception("Erreur d'éxcecution de requète", 2);
 		}
 
-		$exist->bindParam(':civilite', $civilite);
-		$exist->bindParam(':nom', $nom);
-		$exist->bindParam(':prenom', $prenom);
-		$exist->bindParam(':adresse', $adresse);
-		$exist->bindParam(':codepostal', $codepostal);
-		$exist->bindParam(':ville', $ville);
-		$exist->bindParam(':dateNaissance', $dateNaissance);
-		$exist->bindParam(':rueNaissance', $rueNaissance);
-		$exist->bindParam(':numSecu', $numSecu);
+		$exist->bindParam(':civilite', $civilite, PDO::PARAM_STR, 3);
+		$exist->bindParam(':nom', $nom, PDO::PARAM_STR, 50);
+		$exist->bindParam(':prenom', $prenom, PDO::PARAM_STR, 50);
+
+		$exist->bindParam(':adresse', $adresse, PDO::PARAM_STR, 50);
+		$exist->bindParam(':ville', $ville, PDO::PARAM_STR, 50);
+		$exist->bindParam(':codepostal', $codepostal, PDO::PARAM_STR_CHAR, 5);
+
+		$exist->bindParam(':dateNaissance', $dateNaissance, PDO::PARAM_STR); // TODO as Date
+		$exist->bindParam(':rueNaissance', $rueNaissance, PDO::PARAM_STR, 50);
+		$exist->bindParam(':villeNaissance', $villeNaissance, PDO::PARAM_STR, 50);
+		$exist->bindParam(':codePostalNaissance', $codePostalNaissance, PDO::PARAM_STR_CHAR, 5);
+
+		$exist->bindParam(':numSecu', $numSecu, PDO::PARAM_STR_CHAR, 15);
 
 		try {
-			$req->execute();
+			$exist->execute();
 		} catch (\Throwable $th) {
-			throw new Exception("Erreur d'éxcecution de requète", 2);
+			throw $th;
+			//throw new Exception("Erreur d'éxcecution de requète", 2);
 		}
-	} else {
-		echo "Contact already exist !"; // TODO mettre une popup a la place de echo
+
+		if ($exist->fetchColumn() == 0) {
+			try {
+				$req = $linkpdo->prepare(
+					"INSERT INTO client (
+					Civilite, Nom, Prenom, 
+					Adresse, CodePostal, Ville, 
+					DateNaissance, 
+					RueNaissance, VilleNaissance, CodePostalNaissance, 
+					NumSecu
+				) VALUES (
+					:civilite, :nom, :prenom, 
+					:adresse, :codepostal, :ville,
+					:dateNaissance,
+					:rueNaissance, :villeNaissance, :codePostalNaissance,
+					:numSecu
+				)"
+				);
+			} catch (\Throwable $th) {
+				throw new Exception("Erreur d'éxcecution de requète", 2);
+			}
+
+			$req->bindParam(':civilite', $civilite, PDO::PARAM_STR, 3);
+			$req->bindParam(':nom', $nom, PDO::PARAM_STR, 50);
+			$req->bindParam(':prenom', $prenom, PDO::PARAM_STR, 50);
+
+			$req->bindParam(':adresse', $adresse, PDO::PARAM_STR, 50);
+			$req->bindParam(':ville', $ville, PDO::PARAM_STR, 50);
+			$req->bindParam(':codepostal', $codepostal, PDO::PARAM_STR, 5);
+
+			$req->bindParam(':dateNaissance', $dateNaissance, PDO::PARAM_STR);
+			$req->bindParam(':rueNaissance', $rueNaissance, PDO::PARAM_STR, 50);
+			$req->bindParam(':villeNaissance', $villeNaissance, PDO::PARAM_STR, 50);
+			$req->bindParam(':codePostalNaissance', $codePostalNaissance, PDO::PARAM_STR, 5);
+
+			$req->bindParam(':numSecu', $numSecu, PDO::PARAM_STR, 15);
+
+			try {
+				$req->execute();
+			} catch (\Throwable $th) {
+				throw $th;
+				//throw new Exception("Erreur d'éxcecution de requète", 2);
+			}
+		} else {
+			echo "Contact already exist !"; // TODO mettre une popup a la place de echo
+		}
 	}
-
-
-
 	?>
 
 
@@ -133,7 +158,7 @@
 			<a href="index.php">Retour</a>
 		</button>
 		<h1>Saisie nouveau client</h1>
-		<div>easter egg :p</div> <!-- En fait la div sert à centre le titre et aligner le bouton a gauche 
+		<div>easter egg :p</div> <!-- En fait la div sert à centrer le titre et aligner le bouton a gauche 
 			sans mettre en absolute-->
 	</header>
 
@@ -228,7 +253,7 @@
 
 		</fieldset>
 
-		<input type="submit" value="Enregistrer" id ="enregistrer">
+		<input type="submit" value="Enregistrer" id="enregistrer" name="Enregistrer">
 
 	</form>
 
