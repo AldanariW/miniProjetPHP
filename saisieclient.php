@@ -12,10 +12,11 @@
 </head>
 
 <body>
+
 	<?php
 
 	try {
-		$linkpdo = new PDO("mysql:host=localhost;dbname=miniprojetphp", "root", "");
+		$linkpdo = new PDO("mysql:host=localhost;dbname=miniprojet", "root", "");
 	} catch (Exception $e) {
 		throw new Exception("Erreur lors du lien avec la base de données", 1);
 	}
@@ -177,7 +178,7 @@
 			<br>
 
 			<label>N° Sécurité sociale :
-				<input type="text" name="numsecu" placeholder="15 chiffres" maxlength="15" size="15" required>
+				<input type="text" name="numsecu" placeholder="15 chiffres" length="15" size="15" required>
 			</label>
 
 
@@ -202,7 +203,7 @@
 			<legend>Informations Naissance Client</legend>
 
 			<label>Date de naissance :
-				<input type="date" name="dateNaissance" id="datenaissance" required>
+				<input type="date" max="<?= date('Y-m-d'); ?>" required>
 			</label>
 			<br>
 
